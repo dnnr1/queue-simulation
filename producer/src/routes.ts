@@ -10,7 +10,7 @@ router.post("/orders", async (req, res) => {
   try {
     const order = OrdersInputSchema.parse(req.body);
     const id = crypto.randomUUID();
-    await sendMessage(ROUTING_KEY, { id, ...order });
+    await sendMessage(ROUTING_KEY, { id, ...order }, "orders-producer");
     res.status(201).send("Order created successfully");
   } catch (e) {
     console.error(e);
